@@ -2264,12 +2264,13 @@
 				var $item, $option;
 				var self = this;
 				var inputMode = self.settings.mode;
+				var duplicates = self.settings.duplicates;
 				var i, active, options, value_next;
 				value = hash_key(value);
-	
-				if (self.items.indexOf(value) !== -1) {
-					if (inputMode === 'single') self.close();
-					return;
+
+				if((!duplicates || (duplicates && inputMode === 'single')) && self.items.indexOf(value) !== -1) {
+				    if (inputMode === 'single') self.close();
+				    return;
 				}
 	
 				if (!self.options.hasOwnProperty(value)) return;
@@ -2884,6 +2885,7 @@
 		hideSelected: null,
 		addPrecedence: false,
 		preload: false,
+		duplicates: false,
 	
 		scrollDuration: 60,
 		loadThrottle: 300,
